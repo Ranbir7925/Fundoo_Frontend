@@ -20,7 +20,13 @@
         </div>
         <v-form ref="form">
           <div class="inputfileds">
-            <v-text-field label="Email" outlined required></v-text-field>
+            <v-text-field
+              v-model="email"
+              label="Email"
+              :rules="[rules.required]"
+              outlined
+              required
+            ></v-text-field>
             <v-text-field
               v-model="password"
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -37,7 +43,7 @@
               <a>Forget password?</a>
             </div>
             <div class="nextButton">
-              <a>Create account</a>
+              <a href="http://localhost:8080/user/signUp">Create account</a>
               <v-btn @click="validate" color="primary">Next</v-btn>
             </div>
           </div>
@@ -47,21 +53,39 @@
   </v-app>
 </template>
 <script>
+import userService from "../services/userService";
+
 export default {
   name: "SignUp",
   data: () => ({
     show1: false,
+    email: "",
     password: "",
     rules: {
       required: (value) => !!value || "Required.",
       min8: (v) => v.length >= 8 || "Min 8 characters",
     },
   }),
-  methods:{
-    validate () {
-        this.$refs.form.validate()
-    }
-  }
+  methods: {
+    validate() {
+      if (this.$refs.form.validate()) {
+        const signInData = {
+          email: this.email,
+          password: this.password,
+        };
+
+        userService
+          .loginUser(signInData)
+          .then((response) => {
+            console.log(response);
+            localStorage.setItem("token", response.data.id);
+            localStorage.setItem("username", response.data.firstName);
+            localStorage.setItem("email", response.data.email);
+          })
+          .catch((err) => console.log(err));
+      }
+    },
+  },
 };
 </script>
 <style scoped>
@@ -140,10 +164,10 @@ export default {
   /* color: #1a73e8 !important; */
 }
 .forgotButton a,
-.nextButton a{
+.nextButton a {
   display: flex;
   align-items: center;
-  text-decoration: none; 
+  text-decoration: none;
 }
 
 .nextButton {
