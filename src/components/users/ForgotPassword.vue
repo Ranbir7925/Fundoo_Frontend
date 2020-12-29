@@ -73,7 +73,7 @@ export default {
             if (response.status == 200) {
               this.showSnackbar = true;
               this.message = "Password reset link sent to email";
-              setTimeout(() => this.$router.push("/signIn"), 3000);
+              setTimeout(() => this.$router.push("/signIn"), 2000);
             }
           })
           .catch((err) => {

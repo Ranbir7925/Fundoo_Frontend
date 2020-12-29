@@ -88,7 +88,7 @@ export default {
             if (response.status == 204) {
               this.showSnackbar = true;
               this.message = "Password changed successfully..";
-              setTimeout(() => this.$router.push("/signIn"), 3000);
+              setTimeout(() => this.$router.push("/signIn"), 2000);
             }
           })
           .catch((err) => {
