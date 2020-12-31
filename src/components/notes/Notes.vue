@@ -19,14 +19,19 @@ export default {
   methods: {
     fetchNotes: function () {
       NoteService.fetchNotesList().then((response) => {
-        // console.log(response.data.data.data);
         response.data.data.data.forEach((element) => {
+          if(element.isDeleted == false && element.isArchived == false){
           this.noteList.push(element)
+          }
         });
-
-        // this.noteList = response.data.data;
       });
     },
+    fetchTrashList: function(){
+      NoteService.fetchTrashNotesList()
+      .then((response)=>{
+        this.noteList = response.data.data.data;
+      })
+    }
   },
   created() {
     this.fetchNotes();

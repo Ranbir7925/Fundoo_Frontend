@@ -23,6 +23,9 @@
           </md-field>
 
           <div class="notebox-icons">
+            <span>
+               <IconArchive />
+            </span>
             <button @click="addNote">Close</button>
           </div>
           <md-snackbar
@@ -39,8 +42,10 @@
 </template>
 <script>
 import NoteService from "../../services/noteService";
+import IconArchive from './IconArchive'
 import { eventBus } from "../../main"
 export default {
+  components:{IconArchive},
   data() {
     return {
       isVisible: false,

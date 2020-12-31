@@ -1,10 +1,14 @@
 <template>
   <div class="display-notes">
-    <div class="note-cards" v-for="note in noteList" :key="note">
+    <div class="note-cards" v-for="note in noteList" :key="note.id">
       <md-card>
-        <div class="card-items">
+        <div class="card-items" @click="updateNotes(note)">
           <label class="content-part">{{ note.title }}</label>
           <label class="description-part">{{ note.description }}</label>
+        </div>
+        <div class="icon-notes">
+          <IconArchive />
+          <DeleteNote v-bind:note="note.id" />
         </div>
       </md-card>
     </div>
@@ -12,15 +16,34 @@
 </template>
 
 <script>
+import DeleteNote from '../notes/DeleteNote'
+import IconArchive from '../notes/IconArchive'
+import { eventBus } from '../../main'
 export default {
   name: "DisplayNotes",
-  props: ["noteList"],
+  props: ["noteList","iconCategory"],
   data() {
     return {
-      note:[]
+      cardId:[],
+      updateNotesShow:false,
+      noteData:{}
     }
   },
-  methods: {}
+  components:{
+    DeleteNote,IconArchive
+  },
+  methods: {
+    updateNotes: function(note){
+      this.updateNotesShow = true;
+      this.noteData = note;
+    }
+  },
+  created() {
+    eventBus.$on("closeDialogBox",
+    (data)=>{
+      this.updateNotesShow =data
+    })
+  },
 };
 </script>
 
@@ -59,5 +82,10 @@ export default {
 .description-part {
   font-size: 16px;
   font-weight: 500;
+}
+.icon-notes {
+  justify-content: space-evenly;
+  display: flex;
+  flex-direction: row;
 }
 </style>
