@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const baseUrl = "http://fundoonotes.incubation.bridgelabz.com/api/";
-const header= {
+const headers= {
     'Content-Type': 'application/json',
     'Authorization':localStorage.getItem('access_token')
 }
@@ -11,14 +11,22 @@ export default {
             method: 'post',
             url: `${baseUrl}${url}`,
             data: data,
-            header
+            headers
+            // headers: {
+            //     'Content-Type': 'application/json',
+            //     'Authorization':localStorage.getItem('access_token')
+            // }
         })
     },
     get(url){
         return axios({
             method: 'get',
             url:`${baseUrl}${url}`,
-            header
+            headers
+            // headers: {
+            //     'Content-Type': 'application/json',
+            //     'Authorization':localStorage.getItem('access_token')
+            // }
             
         })
     }
