@@ -42,7 +42,7 @@
 </template>
 <script>
 import NoteService from "../../services/noteService";
-import IconArchive from './IconArchive'
+import IconArchive from '../icon/IconArchive'
 import { eventBus } from "../../main"
 export default {
   components:{IconArchive},

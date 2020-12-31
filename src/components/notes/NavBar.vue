@@ -31,7 +31,7 @@
         <div class="navbar">
           <v-navigation-drawer expand-on-hover>
             <v-list nav height="100vh">
-              <v-list-item class="item1" link>
+              <v-list-item class="item1" @click="goto('Notes')">
                 <v-list-item-icon>
                   <md-icon>emoji_objects</md-icon>
                 </v-list-item-icon>
@@ -55,7 +55,7 @@
                 </v-list-item-icon>
                 <v-list-item-title>Archive</v-list-item-title>
               </v-list-item>
-              <v-list-item class="item1" link>
+              <v-list-item class="item1" @click="goto('Trash')">
                 <v-list-item-icon>
                   <md-icon>delete</md-icon>
                 </v-list-item-icon>
@@ -76,7 +76,20 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    goto(selectedOption){
+      if (selectedOption == "Notes") {
+        this.$router.push("notes");
+      }
+      if (selectedOption == "Trash") {
+        console.log("WDWd");
+        this.$router.push("trash");
+      }
+      if (selectedOption == "Archive") {
+        this.$router.push("archive");
+      }
+    }
+  },
 };
 </script>
 

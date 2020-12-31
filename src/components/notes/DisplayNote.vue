@@ -17,7 +17,7 @@
 
 <script>
 import DeleteNote from '../notes/DeleteNote'
-import IconArchive from '../notes/IconArchive'
+import IconArchive from '../icon/IconArchive'
 import { eventBus } from '../../main'
 export default {
   name: "DisplayNotes",

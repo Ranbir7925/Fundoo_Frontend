@@ -1,8 +1,5 @@
 <template>
     <div class="delete-Notes" @click="DeletedNotesInTrash()">
-        <div>
-            <h1>{{notes}}</h1>
-        </div>
         <md-icon>delete</md-icon>
     </div>
 
