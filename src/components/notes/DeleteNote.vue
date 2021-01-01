@@ -11,6 +11,11 @@ import NoteService from '../../services/noteService'
 export default {
     name:'DeleteNotes',
     props:['note'],
+    data(){
+        return{
+            showSnackbar:false,
+        }
+    },
     methods:{
         DeletedNotesInTrash: function(){
             const trashData = {
