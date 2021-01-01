@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import NoteService from '../../services/noteService'
 import DisplayNote from './DisplayNote'
+import NoteService from '../../services/noteService'
 import { eventBus } from '../../main'
 export default {
     name: "Trash",
