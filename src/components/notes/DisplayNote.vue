@@ -1,91 +1,144 @@
 <template>
   <div class="display-notes">
     <div class="note-cards" v-for="note in noteList" :key="note.id">
-      <md-card>
-        <div class="card-items" @click="updateNotes(note)">
+      <md-card md-with-hover>
+        <div class="card-items" @click="updateBoxData(note)">
           <label class="content-part">{{ note.title }}</label>
           <label class="description-part">{{ note.description }}</label>
         </div>
-        <div class="icon-notes">
+
+        <div v-if="iconCategory == 'trash'" class="notebox-icons">
+          <DeletePermanent v-bind:note="note" />
+        </div>
+
+        <div v-else class="icon-notes">
+          <IconColorPalette />
           <IconArchive />
           <DeleteNote v-bind:note="note.id" />
         </div>
       </md-card>
     </div>
+    <UpdateNote
+      v-if="showUpdateBox"
+      v-bind:showUpdateBox="showUpdateBox"
+      v-bind:noteData="noteData"
+    />
+    <md-snackbar
+      md-position="left"
+      :md-active.sync="showSnackbar"
+      md-persistent
+    >
+      <span>{{ result }}</span>
+    </md-snackbar>
   </div>
 </template>
 
 <script>
-import DeleteNote from '../notes/DeleteNote'
-import IconArchive from '../icon/IconArchive'
-import { eventBus } from '../../main'
+import IconArchive from "../icon/IconArchive";
+import IconColorPalette from '../icon/IconColorPalette'
+import DeleteNote from "./DeleteNote";
+import UpdateNote from './UpdateNote'
+import DeletePermanent from "./DeletePermanent";
+import { eventBus } from "../../main";
 export default {
   name: "DisplayNotes",
-  props: ["noteList","iconCategory"],
+  props: ["noteList", "iconCategory"],
   data() {
     return {
-      cardId:[],
-      updateNotesShow:false,
-      noteData:{}
-    }
+      cardId: [],
+      showUpdateBox:false,
+      showSnackbar:false,
+      noteData: {},
+      result:""
+    };
   },
-  components:{
-    DeleteNote,IconArchive
+  components: {
+    IconArchive,
+    IconColorPalette,
+    DeletePermanent,
+    DeleteNote,
+    UpdateNote,
   },
   methods: {
-    updateNotes: function(note){
-      this.updateNotesShow = true;
+    updateBoxData: function (note) {
+      this.showUpdateBox = true;
       this.noteData = note;
-    }
+    },
   },
   created() {
-    eventBus.$on("closeDialogBox",
-    (data)=>{
-      this.updateNotesShow =data
-    })
+    eventBus.$on("closeDialogBox", (data) => {
+      this.showUpdateBox = data;
+      this.showSnackbar = true;
+      this.result = "Update Note Successfully"    
+    });
   },
 };
 </script>
 
-<style>
+<style scoped>
 .display-notes {
-  display: flex;
+  width: 100%;
   margin-top: 1%;
-  margin-left: 16%;
+  margin-left: 16%;  
+  display: flex;
   flex-direction: row;
-  width: 80%;
   flex-wrap: wrap;
 }
 .card-items {
+  padding: 10px;
   display: flex;
   flex-direction: column;
   height: min-content;
-  text-align: start;
+  text-align: flex-start;
   padding: 10px;
 }
 .md-card {
+  width: 290px;
   margin: 8px;
   padding: 18px;
-  width: 190px;
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-    0 1px 5px 0 rgba(0, 0, 0, 0.12);
   border-radius: 5%;
 }
 .content-part {
+  width: 90%;
+  word-break: break-word;
   font-weight: bold;
   font-size: 18px;
-  max-width: 90%;
-  opacity: 0.6;
   cursor: text;
+  opacity: 0.6;
   margin: 0px 0px 10px 0px;
 }
 .description-part {
+  font-weight: bold;
+  width: 90%;
+  word-break: break-word;
+  opacity: 0.6;
+  font-size: 18px;
+  margin: 0px 0px 10px 0px;
   font-size: 16px;
   font-weight: 500;
+  cursor: text;
 }
 .icon-notes {
-  justify-content: space-evenly;
+  justify-content:flex-start;
   display: flex;
   flex-direction: row;
+}
+@media screen and (max-width: 1024px) {
+  .md-card {
+    margin: 10px;
+    width: 230px;
+  }
+}
+@media screen and (max-width: 480-px) {
+  .md-card {
+    margin: 10px;
+    width: 230px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .md-card {
+    margin: 10px;
+    width: 230px;
+  }
 }
 </style>

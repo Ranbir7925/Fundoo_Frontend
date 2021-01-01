@@ -1,6 +1,6 @@
 <template>
-  <div class="create-note">
-    <div class="note">
+  <div id="create-note-container">
+    <div id="note-mainpart">
       <div @click="display()">
         <md-card :class="{ header: isVisible }">
           <label class="title-first">Take a note....</label>
@@ -10,7 +10,6 @@
         <md-card
           id="note-card"
           :class="{ header: !isVisible }"
-          v-bind:style="{ background: cardColor }"
         >
           <md-field md-inline>
             <label class="title">Title</label>
@@ -24,9 +23,10 @@
 
           <div class="notebox-icons">
             <span>
+              <IconColorPalette />
                <IconArchive />
             </span>
-            <button @click="addNote">Close</button>
+            <button @click="addNote()">Close</button>
           </div>
           <md-snackbar
             md-position="left"
@@ -41,16 +41,16 @@
   </div>
 </template>
 <script>
-import NoteService from "../../services/noteService";
 import IconArchive from '../icon/IconArchive'
+import IconColorPalette  from '../icon/IconColorPalette'
+import NoteService from "../../services/noteService";
 import { eventBus } from "../../main"
 export default {
-  components:{IconArchive},
+  components:{IconArchive,IconColorPalette},
   data() {
     return {
       isVisible: false,
       showSnackbar: false,
-      cardColor: "",
       title: "",
       description: "",
       result: "",
@@ -62,8 +62,8 @@ export default {
         title: this.title,
         description: this.description,
       };
-      NoteService.getAddNote(note).then((response) => {
-        console.log("result", response.data);
+      NoteService.getAddNote(note).then(() => {
+        this.showSnackbar=true,
         this.result = "Note Add Successfully";
         this.title = "";
         this.description = "";
@@ -75,55 +75,121 @@ export default {
       this.isVisible = true;
     },
   },
+  created() {
+    if(localStorage.getItem("access_token") == undefined){
+      this.$router.push("/signIn")
+    }
+  },
 };
 </script>
 
 <style scoped>
-.create-note {
-  display: flex;
-  justify-content: flex-start;
+#create-note-container {
+  width: 100%;
+  margin-right: 50%;
 }
-.note {
-  /* display: flex; */
-  /* align-items: flex-start; */
-  /* justify-content: center; */
+#note-mainpart {
+  align-items: flex-start;
+  justify-content: center;
   border-radius: 7px;
   width: 46%;
-  margin-top: 3%;
-  /* margin-left: 33%; */
-  box-shadow: 0px 0px 5px 2px #a19f9f;
+  margin-top: 5%;
+  margin-left: 33%;
+  box-shadow: 2px 3px 5px #a19f9f;
   padding: 10px;
   font-weight: 600;
   font-size: 18px;
   cursor: text;
 }
 .header {
-  display: none !important;
+  display: none  !important;
   opacity: 0.1;
 }
 .md-card {
-  background-color: transparent;
   padding: 4px;
   display: flex;
   flex-direction: column;
-  box-shadow: none;
+  box-shadow: none; 
 }
 .md-field {
   font-size: 16px;
   font-weight: 600;
   margin-top: -4%;
 }
+#notebox {
+  width: 100%;
+}
+.notebox-icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: -5%;
+}
+.notebox-icons > button {
+  width: 15%;
+  font-size: 15px;
+  display: flex;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+.md-field:after, .md-field:before {
+  position: relative;
+}
+span {
+  display: flex;
+  flex-direction: row;
+}
 .title-first {
   opacity: 0.5;
   margin-right: 374px;
 }
-
-.md-field:after,
-.md-field:before {
-  position: relative;
+@media screen and (max-width: 1024px) {
+  #create-note-container {
+    width: 100%;
+    margin-left: -2%;
+  }
+  #note-mainpart {
+    min-width: 78%;
+    padding: 20px;
+    margin-left: 20%;
+  }
+  .title-first {
+    margin-right: 200px;
+    font-size: 10px;
+  }
 }
-.create-note {
-  display: flex;
-  justify-content: center;
+@media screen and (max-width: 480px) {
+  #create-note-container {
+    width: 100%;
+    margin-left: -2%;
+  }
+  #note-mainpart {
+    min-width: 86%;
+    padding: 20px;
+    margin-left: 20%;
+  }
+  .title-first {
+    margin-right: 150px;
+    font-size: 15px;
+  }
+  #note-card {
+    width: 200px;
+  }
+}
+@media screen and (width: 320px) {
+  #create-note-container {
+    width: 100%;
+  }
+  #note-mainpart {
+    min-width: 90%;
+    padding: 20px;
+    margin-left: 21%;
+  }
+  .title-first {
+    margin-right: 80px;
+    font-size: 15px;
+    height: 2%;
+  }
 }
 </style>
