@@ -12,10 +12,6 @@ export default {
             url: `${baseUrl}${url}`,
             data: data,
             headers
-            // headers: {
-            //     'Content-Type': 'application/json',
-            //     'Authorization':localStorage.getItem('access_token')
-            // }
         })
     },
     get(url){
@@ -23,11 +19,6 @@ export default {
             method: 'get',
             url:`${baseUrl}${url}`,
             headers
-            // headers: {
-            //     'Content-Type': 'application/json',
-            //     'Authorization':localStorage.getItem('access_token')
-            // }
-            
         })
     }
   }

@@ -12,7 +12,10 @@ class NoteService{
     fetchTrashNotesList(){
         return axiosService.get('notes/getTrashNotesList')
     }
-    deleteForever(noteId){
+    updateNotes(updateData) {
+        return axiosService.post('notes/updateNotes',updateData)
+    }
+    deletePermanent(noteId){
         return axiosService.post('notes/deleteForeverNotes',noteId)
     }
 }
