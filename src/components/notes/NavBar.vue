@@ -49,7 +49,7 @@
                 </v-list-item-icon>
                 <v-list-item-title>Edit Lables</v-list-item-title>
               </v-list-item>
-              <v-list-item class="item1" link>
+              <v-list-item class="item1"  @click="goto('Archive')">
                 <v-list-item-icon>
                   <md-icon>archive</md-icon>
                 </v-list-item-icon>
@@ -82,7 +82,6 @@ export default {
         this.$router.push("notes");
       }
       if (selectedOption == "Trash") {
-        console.log("WDWd");
         this.$router.push("trash");
       }
       if (selectedOption == "Archive") {

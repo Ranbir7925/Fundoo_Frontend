@@ -1,19 +1,21 @@
 <template>
   <div class="display-notes">
     <div class="note-cards" v-for="note in noteList" :key="note.id">
-      <md-card md-with-hover>
+      <md-card md-with-hover v-bind:style="{ background: note.color }">
         <div class="card-items" @click="updateBoxData(note)">
           <label class="content-part">{{ note.title }}</label>
           <label class="description-part">{{ note.description }}</label>
         </div>
 
         <div v-if="iconCategory == 'trash'" class="notebox-icons">
-          <DeletePermanent v-bind:note="note" />
+          <DeletePermanent v-bind:noteId="note.id" />
         </div>
-
+        <div v-else-if="iconCategory == 'archive'" class="icon-notes">
+          <IconUnarchive />
+        </div>
         <div v-else class="icon-notes">
-          <IconColorPalette />
-          <IconArchive />
+          <IconColorPalette v-bind:note="note.id" />
+          <IconArchive  v-bind:note="note.id"/>
           <DeleteNote v-bind:note="note.id" />
         </div>
       </md-card>
@@ -35,10 +37,11 @@
 
 <script>
 import IconArchive from "../icon/IconArchive";
-import IconColorPalette from '../icon/IconColorPalette'
+import IconColorPalette from "../icon/IconColorPalette";
 import DeleteNote from "./DeleteNote";
-import UpdateNote from './UpdateNote'
+import UpdateNote from "./UpdateNote";
 import DeletePermanent from "./DeletePermanent";
+import IconUnarchive from '../icon/IconUnarchive'
 import { eventBus } from "../../main";
 export default {
   name: "DisplayNotes",
@@ -46,10 +49,10 @@ export default {
   data() {
     return {
       cardId: [],
-      showUpdateBox:false,
-      showSnackbar:false,
+      showUpdateBox: false,
+      showSnackbar: false,
       noteData: {},
-      result:""
+      result: "",
     };
   },
   components: {
@@ -58,6 +61,7 @@ export default {
     DeletePermanent,
     DeleteNote,
     UpdateNote,
+    IconUnarchive
   },
   methods: {
     updateBoxData: function (note) {
@@ -69,7 +73,7 @@ export default {
     eventBus.$on("closeDialogBox", (data) => {
       this.showUpdateBox = data;
       this.showSnackbar = true;
-      this.result = "Update Note Successfully"    
+      this.result = "Update Note Successfully";
     });
   },
 };
@@ -79,7 +83,7 @@ export default {
 .display-notes {
   width: 100%;
   margin-top: 1%;
-  margin-left: 16%;  
+  margin-left: 16%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -119,7 +123,7 @@ export default {
   cursor: text;
 }
 .icon-notes {
-  justify-content:flex-start;
+  justify-content: flex-start;
   display: flex;
   flex-direction: row;
 }

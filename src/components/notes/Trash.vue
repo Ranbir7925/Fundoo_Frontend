@@ -6,6 +6,12 @@
         v-bind:iconCategory="iconCategory"
       />
     </div>
+     <md-snackbar 
+        md-position="left" 
+        :md-active.sync="showSnackbar" 
+        md-persistent>
+      <span>{{result}}</span>
+    </md-snackbar> 
   </div>
 </template>
 
@@ -19,6 +25,8 @@ export default {
         return{
         trashList:[],
         iconCategory: "trash",
+        showSnackbar:false, 
+      result: "",
         }
     },
     components:{
@@ -37,6 +45,8 @@ export default {
         eventBus.$on("getDeletedInTrashList",()=>{
             this.trashList=[];
             this.fetchTrashList();
+            this.showSnackbar=true
+      this.result = "Permanently Delete Note Successfully";
         })
     },
 }

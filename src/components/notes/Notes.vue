@@ -4,9 +4,10 @@
     <DisplayNotes v-bind:noteList="noteList" />
   </div>
 </template>
+
 <script>
-import CreateNotes from "../notes/CreateNote";
-import DisplayNotes from "../notes/DisplayNote";
+import CreateNotes from "./CreateNote";
+import DisplayNotes from "./DisplayNote";
 import NoteService from "../../services/noteService";
 import { eventBus } from "../../main";
 export default {

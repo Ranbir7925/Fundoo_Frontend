@@ -3,20 +3,20 @@
     <md-dialog :md-active.sync="showUpdateBox">
       <md-card id="updateNoteCard">
         <md-field>
-          <md-input v-model="title" > </md-input> </md-field
-        ><br />
+          <md-input v-model="title" > </md-input>
+        </md-field>
 
         <md-field>
           <md-textarea
             v-model="description"
             md-autogrow
           ></md-textarea> </md-field
-        ><br />
+        >
 
         <div class="notebox-icons">
           <span>
-            <IconColorPalette />
-            <IconArchive />
+            <IconColorPalette v-bind:note= "noteId"/>
+            <IconArchive v-bind:note= "noteId"/>
           </span>
           <button @click="closeDialogBox()">Close</button>
         </div>
@@ -41,6 +41,7 @@ IconColorPalette,IconArchive
       title: "",
       description: "",
       noteId: "",
+      color:'',
     };
   },
   methods: {
@@ -52,6 +53,7 @@ IconColorPalette,IconArchive
       };
       NoteService.updateNotes(updateData).then(() => {
         this.showUpdateBox = false;
+         this.isArchived=false;
         eventBus.$emit("closeDialogBox", this.showUpdateBox);
         eventBus.$emit("getAfterUpdatedNoteList");
       })
@@ -60,20 +62,30 @@ IconColorPalette,IconArchive
       });
     }
   },
+  created() {
+        eventBus.$on("'getUpdated", (data) => {
+      this.color = data;
+    });
+  },
   mounted() {
     this.noteId = this.$props.noteData.id;
     this.title = this.$props.noteData.title;
     this.description = this.$props.noteData.description;
+    this.color = this.$props.noteData.color;
   },
     
 }
 </script>
 
 <style scoped>
+#updateNoteCard{
+    border-radius: 10px;
+
+}
 .md-dialog .md-dialog-container {
   width: 40%;
   min-height: 20vh;
-  border-radius: 7px;
+  border-radius: 10px;
 }
 .notebox-icons {
   display: flex;

@@ -9,13 +9,12 @@ import { eventBus } from "../../main";
 import NoteService from "../../services/noteService";
 export default {
   name: "DeletePermanent",
-  props: ["note"],
+  props: ["noteId"],
   methods: {
     PermanentDelete: function () {
       const data = {
-        noteIdList: [this.note.id],
+        noteIdList: [this.noteId],
       };
-      console.log(this.note.id);
       NoteService.deletePermanent(data).then(() => {
         eventBus.$emit("getDeletedInTrashList");
       });
@@ -27,5 +26,10 @@ export default {
 <style scoped>
 .delete-part {
   cursor: pointer;
+  margin-top: -10%;
+  margin-right: 10%;
+}
+.md-icon {
+  margin-right: 90%;
 }
 </style> 

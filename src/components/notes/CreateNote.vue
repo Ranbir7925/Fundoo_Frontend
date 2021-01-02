@@ -23,7 +23,7 @@
 
           <div class="notebox-icons">
             <span>
-              <IconColorPalette />
+              <IconColorPalette v-bind:createNote="createNote" />
                <IconArchive />
             </span>
             <button @click="addNote()">Close</button>
@@ -51,6 +51,9 @@ export default {
     return {
       isVisible: false,
       showSnackbar: false,
+      isArchived:false,
+      createNote: true,
+      cardColor: "",
       title: "",
       description: "",
       result: "",
@@ -61,6 +64,8 @@ export default {
       const note = {
         title: this.title,
         description: this.description,
+        isArchived:this.isArchived,
+        color:this.cardColor
       };
       NoteService.getAddNote(note).then(() => {
         this.showSnackbar=true,
@@ -68,7 +73,9 @@ export default {
         this.title = "";
         this.description = "";
       });
+      this.cardColor = "#ffffff";
       this.isVisible = false;
+      this.isArchived = false;
       eventBus.$emit("getAfterUpdatedNoteList");
     },
     display: function () {
@@ -79,6 +86,12 @@ export default {
     if(localStorage.getItem("access_token") == undefined){
       this.$router.push("/signIn")
     }
+    eventBus.$on("getColorUpdated", (data) => {
+      this.cardColor = data;
+    });
+    eventBus.$on('isArchived',(data)=>{
+      this.isArchived =data;
+    })
   },
 };
 </script>

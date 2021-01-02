@@ -21,7 +21,6 @@ export default {
             const trashData = {
                 noteIdList:[this.note],
                 isDeleted: true
-
             }
             NoteService.DeletedNoteMoveToTrash(trashData)
             .then(()=>{
