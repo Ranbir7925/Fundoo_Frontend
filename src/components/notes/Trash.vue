@@ -41,6 +41,9 @@ export default {
         }
     },
     created() {
+      if (localStorage.getItem("token") == undefined) {
+      this.$router.push("/");
+    }
         this.fetchTrashList()
         eventBus.$on("getDeletedInTrashList",()=>{
             this.trashList=[];

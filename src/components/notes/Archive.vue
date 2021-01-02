@@ -1,9 +1,15 @@
 <template>
   <div class="archive-display">
     <DisplayNote
-      v-bind:noteList="filteredList"
+      v-bind:noteList="archiveList"
       v-bind:iconCategory="iconCategory"
     />
+     <md-snackbar 
+        md-position="left" 
+        :md-active.sync="showSnackbar" 
+        md-persistent>
+      <span>{{result}}</span>
+    </md-snackbar> 
   </div>
 </template>
 
@@ -18,7 +24,9 @@ export default {
         return{
             archiveList:[],
             iconCategory:"archive",
-            searchText:''
+            searchText:'',
+            showSnackbar:false, 
+      result: "",
         }
     },
     methods:{
@@ -36,15 +44,10 @@ export default {
     eventBus.$on("unarchivedNote", () => {
       this.archiveList = [];
       this.fetchArchiveList();
+      this.showSnackbar=true
+      this.result = "UnArchive Note Successfully"; 
     });
   },
-  computed:{
-    filteredList:function(){
-      return this.archiveList.filter((note)=>{
-        return note.title.match(this.searchText);
-      })
-    }
-  }
 };
 </script>
 <style scoped>

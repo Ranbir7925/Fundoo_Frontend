@@ -86,7 +86,7 @@ export default {
     if(localStorage.getItem("access_token") == undefined){
       this.$router.push("/signIn")
     }
-    eventBus.$on("getColorUpdated", (data) => {
+    eventBus.$on("getUpdatedColorOnNotes", (data) => {
       this.cardColor = data;
     });
     eventBus.$on('isArchived',(data)=>{

@@ -22,9 +22,31 @@
             <md-icon>settings</md-icon>
           </v-btn>
 
-          <v-btn icon>
+          <!-- <v-btn icon>
             <md-icon>account_circle</md-icon>
-          </v-btn>
+          </v-btn> -->
+
+          <md-menu md-size="medium" md-align-trigger>
+            <md-button class="md-icon-button" md-menu-trigger>
+              <md-icon>person</md-icon>
+            </md-button>
+            <md-menu-content>
+              <div class="profile">
+                <md-button class="md-icon-button">
+                  <md-icon>person</md-icon>
+                   </md-button
+                ><br />
+
+                <label class="profile-name">
+                  {{ firstName }} {{ lastName }} </label
+                ><br />
+                <label class="profile-email">{{ email }}</label
+                ><br />
+                <div id="manage">Manage your Google Account</div>
+                <md-button id="signout" @click="signout">Signout</md-button>
+              </div>
+            </md-menu-content>
+          </md-menu>
         </div>
       </v-toolbar>
       <div class="outer">
@@ -49,7 +71,7 @@
                 </v-list-item-icon>
                 <v-list-item-title>Edit Lables</v-list-item-title>
               </v-list-item>
-              <v-list-item class="item1"  @click="goto('Archive')">
+              <v-list-item class="item1" @click="goto('Archive')">
                 <v-list-item-icon>
                   <md-icon>archive</md-icon>
                 </v-list-item-icon>
@@ -74,10 +96,13 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      userName:'',
+      email:''
+    };
   },
   methods: {
-    goto(selectedOption){
+    goto(selectedOption) {
       if (selectedOption == "Notes") {
         this.$router.push("notes");
       }
@@ -87,7 +112,17 @@ export default {
       if (selectedOption == "Archive") {
         this.$router.push("archive");
       }
-    }
+    },
+    signout: function () {
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("userName");
+      localStorage.removeItem("email");
+      this.$router.push("/");
+    },	  
+  },	
+  created() {
+    this.userName = localStorage.getItem("username");
+    this.email = localStorage.getItem("email");
   },
 };
 </script>
@@ -118,11 +153,11 @@ img {
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
 }
-.outer{
+.outer {
   display: flex;
   flex-direction: row;
 }
-.components{
+.components {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -132,5 +167,61 @@ img {
   .textfield {
     display: none;
   }
+}
+
+
+
+
+
+
+
+
+
+
+
+.profile {
+  width: 100%;
+  border-radius: 65%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile-name {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  font-weight: bolder;
+}
+.profile-email {
+  font-family: Arial, Helvetica, sans-serif;
+ font-size: 17px;
+  margin-top: -6%;
+}
+#signout {
+  width: 40%;
+  color: white;
+  border-radius: 7px;
+  color: black;
+  border: 1px solid black;
+}
+#signout :hover {
+   background-color: rgb(236, 229, 229);
+}
+#manage {
+  margin-bottom: 7%;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: white;
+  width: 99%;
+  color:  rgb(14, 12, 12);
+  border-radius: 10px;
+  font-size: 15px;
+   border: 1px solid black;
+   cursor: pointer;
+}
+#manage :hover {
+   background-color: rgb(236, 229, 229);
+}
+.md-drawer {
+  width: 17%;
 }
 </style>
