@@ -6,6 +6,8 @@ import ForgotPassword from '../components/users/ForgotPassword'
 import ResetPassword from '../components/users/ResetPassword'
 import Dashboard from '../components/notes/Dashboard'
 import Notes from '../components/notes/Notes'
+import Trash from '../components/notes/Trash'
+import Archive from '../components/notes/Archive'
 
 Vue.use(Router)
 
@@ -20,7 +22,9 @@ const router = new Router({
     {
       path: '/dashboard', component: Dashboard,
       children: [
-        { path: 'notes', component: Notes }
+        { path: 'notes', component: Notes },
+        { path: 'trash', component: Trash },
+        { path: 'archive', component: Archive }
       ]
     },
   ]
