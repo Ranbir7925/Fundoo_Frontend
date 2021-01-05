@@ -22,9 +22,9 @@
             <md-icon>settings</md-icon>
           </v-btn>
 
-          <!-- <v-btn icon>
+          <v-btn icon>
             <md-icon>account_circle</md-icon>
-          </v-btn> -->
+          </v-btn>
 
           <md-menu md-size="medium" md-align-trigger>
             <md-button class="md-icon-button" md-menu-trigger>
@@ -38,12 +38,12 @@
                 ><br />
 
                 <label class="profile-name">
-                  {{ firstName }} {{ lastName }} </label
+                  {{ userName }}</label
                 ><br />
                 <label class="profile-email">{{ email }}</label
                 ><br />
                 <div id="manage">Manage your Google Account</div>
-                <md-button id="signout" @click="signout">Signout</md-button>
+                <md-button id="signout" >Signout</md-button>
               </div>
             </md-menu-content>
           </md-menu>
@@ -113,16 +113,16 @@ export default {
         this.$router.push("archive");
       }
     },
-    signout: function () {
-      localStorage.removeItem("access_token");
-      localStorage.removeItem("userName");
-      localStorage.removeItem("email");
-      this.$router.push("/");
-    },	  
-  },	
-  created() {
-    this.userName = localStorage.getItem("username");
-    this.email = localStorage.getItem("email");
+  //   signout: function () {
+  //     localStorage.removeItem("access_token");
+  //     localStorage.removeItem("userName");
+  //     localStorage.removeItem("email");
+  //     this.$router.push("/");
+  //   },	  
+  // },	
+  // created() {
+  //   this.userName = localStorage.getItem("username");
+  //   this.email = localStorage.getItem("email");
   },
 };
 </script>

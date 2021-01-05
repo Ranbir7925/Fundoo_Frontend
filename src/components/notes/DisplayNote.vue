@@ -48,7 +48,6 @@ export default {
   props: ["noteList", "iconCategory"],
   data() {
     return {
-      cardId: [],
       showUpdateBox: false,
       showSnackbar: false,
       noteData: {},
@@ -83,7 +82,7 @@ export default {
 .display-notes {
   width: 100%;
   margin-top: 1%;
-  margin-left: 16%;
+  margin-left: 4%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

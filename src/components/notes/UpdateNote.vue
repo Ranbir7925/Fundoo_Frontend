@@ -3,20 +3,17 @@
     <md-dialog :md-active.sync="showUpdateBox">
       <md-card id="updateNoteCard">
         <md-field>
-          <md-input v-model="title" > </md-input>
+          <md-input v-model="title"> </md-input>
         </md-field>
 
         <md-field>
-          <md-textarea
-            v-model="description"
-            md-autogrow
-          ></md-textarea> </md-field
-        >
+          <md-textarea v-model="description" md-autogrow></md-textarea>
+        </md-field>
 
         <div class="notebox-icons">
           <span>
-            <IconColorPalette v-bind:note= "noteId"/>
-            <IconArchive v-bind:note= "noteId"/>
+            <IconColorPalette v-bind:note="noteId" />
+            <IconArchive v-bind:note="noteId" />
           </span>
           <button @click="closeDialogBox()">Close</button>
         </div>
@@ -26,22 +23,24 @@
 </template>
 
 <script>
-import IconColorPalette from '../icon/IconColorPalette'
-import IconArchive from '../icon/IconArchive'
-import NoteService from '../../services/noteService'
-import { eventBus } from '../../main'
+import IconColorPalette from "../icon/IconColorPalette";
+import IconArchive from "../icon/IconArchive";
+import NoteService from "../../services/noteService";
+import { eventBus } from "../../main";
 export default {
-    name:"UpdateNote",
-    props: ["showUpdateBox", "noteData"],
-    components:{
-IconColorPalette,IconArchive
-    },
+  name: "UpdateNote",
+  props: ["showUpdateBox", "noteData"],
+  components: {
+    IconColorPalette,
+    IconArchive,
+  },
   data() {
     return {
       title: "",
       description: "",
       noteId: "",
-      color:'',
+      color: "",
+      showUpdateBoxNew : this.showUpdateBox
     };
   },
   methods: {
@@ -51,19 +50,20 @@ IconColorPalette,IconArchive
         title: this.title,
         description: this.description,
       };
-      NoteService.updateNotes(updateData).then(() => {
-        this.showUpdateBox = false;
-         this.isArchived=false;
-        eventBus.$emit("closeDialogBox", this.showUpdateBox);
-        eventBus.$emit("getAfterUpdatedNoteList");
-      })
-      .catch((err)=>{
-        console.log(err);
-      });
-    }
+      NoteService.updateNotes(updateData)
+        .then(() => {
+          this.showUpdateBoxNew = false;
+          this.isArchived = false;
+          eventBus.$emit("closeDialogBox", this.showUpdateBoxNew);
+          eventBus.$emit("getAfterUpdatedNoteList");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   created() {
-        eventBus.$on("'getUpdated", (data) => {
+    eventBus.$on("'getUpdated", (data) => {
       this.color = data;
     });
   },
@@ -73,14 +73,12 @@ IconColorPalette,IconArchive
     this.description = this.$props.noteData.description;
     this.color = this.$props.noteData.color;
   },
-    
-}
+};
 </script>
 
 <style scoped>
-#updateNoteCard{
-    border-radius: 10px;
-
+#updateNoteCard {
+  border-radius: 10px;
 }
 .md-dialog .md-dialog-container {
   width: 40%;

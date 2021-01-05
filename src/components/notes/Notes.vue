@@ -21,18 +21,17 @@ export default {
     fetchNotes: function () {
       NoteService.fetchNotesList().then((response) => {
         response.data.data.data.forEach((element) => {
-          if(element.isDeleted == false && element.isArchived == false){
-          this.noteList.push(element)
+          if (element.isDeleted == false && element.isArchived == false) {
+            this.noteList.push(element);
           }
         });
       });
     },
-    fetchTrashList: function(){
-      NoteService.fetchTrashNotesList()
-      .then((response)=>{
+    fetchTrashList: function () {
+      NoteService.fetchTrashNotesList().then((response) => {
         this.noteList = response.data.data.data;
-      })
-    }
+      });
+    },
   },
   created() {
     this.fetchNotes();
@@ -40,7 +39,7 @@ export default {
       this.noteList = [];
       this.fetchNotes();
     });
-    eventBus.$emit("sendIdList",this.noteList.id)
+    eventBus.$emit("sendIdList", this.noteList.id);
   },
 };
 </script>

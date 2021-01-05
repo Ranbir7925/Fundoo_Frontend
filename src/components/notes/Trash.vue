@@ -6,53 +6,50 @@
         v-bind:iconCategory="iconCategory"
       />
     </div>
-     <md-snackbar 
-        md-position="left" 
-        :md-active.sync="showSnackbar" 
-        md-persistent>
-      <span>{{result}}</span>
-    </md-snackbar> 
+    <md-snackbar
+      md-position="left"
+      :md-active.sync="showSnackbar"
+      md-persistent
+    >
+      <span>{{ result }}</span>
+    </md-snackbar>
   </div>
 </template>
 
 <script>
-import DisplayNote from './DisplayNote'
-import NoteService from '../../services/noteService'
-import { eventBus } from '../../main'
+import DisplayNote from "./DisplayNote";
+import NoteService from "../../services/noteService";
+import { eventBus } from "../../main";
 export default {
-    name: "Trash",
-    data(){
-        return{
-        trashList:[],
-        iconCategory: "trash",
-        showSnackbar:false, 
+  name: "Trash",
+  data() {
+    return {
+      trashList: [],
+      iconCategory: "trash",
+      showSnackbar: false,
       result: "",
-        }
+    };
+  },
+  components: {
+    DisplayNote,
+  },
+  methods: {
+    fetchTrashList: function () {
+      NoteService.fetchTrashNotesList().then((response) => {
+        this.trashList = response.data.data.data;
+      });
     },
-    components:{
-        DisplayNote
-    },
-    methods:{
-        fetchTrashList: function (){
-            NoteService.fetchTrashNotesList()
-            .then((response)=>{
-                this.trashList = response.data.data.data;
-            })
-        }
-    },
-    created() {
-      if (localStorage.getItem("token") == undefined) {
-      this.$router.push("/");
-    }
-        this.fetchTrashList()
-        eventBus.$on("getDeletedInTrashList",()=>{
-            this.trashList=[];
-            this.fetchTrashList();
-            this.showSnackbar=true
+  },
+  created() {
+    this.fetchTrashList();
+    eventBus.$on("getDeletedInTrashList", () => {
+      this.trashList = [];
+      this.fetchTrashList();
+      this.showSnackbar = true;
       this.result = "Permanently Delete Note Successfully";
-        })
-    },
-}
+    });
+  },
+};
 </script>
 
 <style scoped>
