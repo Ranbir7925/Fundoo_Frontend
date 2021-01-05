@@ -8,7 +8,6 @@
 import NavBar from "../notes/NavBar"
 export default {
     name:"Dashboard",
-    components:{NavBar}
-    
+    components:{NavBar}  
 }
 </script>

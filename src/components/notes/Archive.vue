@@ -37,9 +37,6 @@ export default {
     },
   },
   created() {
-    if (localStorage.getItem("access_token") == undefined) {
-      this.$router.push("/signIn");
-    }
     this.fetchArchiveList();
     eventBus.$on("unarchivedNote", () => {
       this.archiveList = [];
