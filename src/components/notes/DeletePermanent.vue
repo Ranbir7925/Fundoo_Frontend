@@ -17,7 +17,8 @@ export default {
       };
       NoteService.deletePermanent(data).then(() => {
         eventBus.$emit("getDeletedInTrashList");
-      });
+      })
+      .catch(error => console.log(error))
     },
   },
 };

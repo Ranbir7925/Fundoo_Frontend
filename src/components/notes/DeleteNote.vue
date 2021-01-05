@@ -1,34 +1,34 @@
 <template>
-    <div class="delete-Notes" @click="DeletedNotesInTrash()">
-        <md-icon>delete</md-icon>
-    </div>
-
+  <div class="delete-Notes" @click="DeletedNotesInTrash()">
+    <md-icon>delete</md-icon>
+  </div>
 </template>
 
 <script>
-import { eventBus } from '../../main'
-import NoteService from '../../services/noteService'
+import { eventBus } from "../../main";
+import NoteService from "../../services/noteService";
 export default {
-    name:'DeleteNotes',
-    props:['note'],
-    data(){
-        return{
-            showSnackbar:false,
-        }
+  name: "DeleteNotes",
+  props: ["note"],
+  data() {
+    return {
+      showSnackbar: false,
+    };
+  },
+  methods: {
+    DeletedNotesInTrash: function () {
+      const trashData = {
+        noteIdList: [this.note],
+        isDeleted: true,
+      };
+      NoteService.DeletedNoteMoveToTrash(trashData)
+        .then(() => {
+          eventBus.$emit("getAfterUpdatedNoteList");
+        })
+        .catch((error) => console.log(error));
     },
-    methods:{
-        DeletedNotesInTrash: function(){
-            const trashData = {
-                noteIdList:[this.note],
-                isDeleted: true
-            }
-            NoteService.DeletedNoteMoveToTrash(trashData)
-            .then(()=>{
-                eventBus.$emit("getAfterUpdatedNoteList")
-            })
-        }
-    }
-}
+  },
+};
 </script>
 
 <style scoped>

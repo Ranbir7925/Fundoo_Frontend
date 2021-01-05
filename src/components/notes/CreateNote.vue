@@ -7,7 +7,11 @@
         </md-card>
       </div>
       <div id="notebox">
-        <md-card id="note-card" :class="{ header: !isVisible }">
+        <md-card
+          id="note-card"
+          :class="{ header: !isVisible }"
+          v-bind:style="{ background: cardColor }"
+        >
           <md-field md-inline>
             <label class="title">Title</label>
             <md-input v-model="title"></md-input>
@@ -96,6 +100,7 @@ export default {
   margin-right: 50%;
 }
 #note-mainpart {
+  display: flex;
   align-items: flex-start;
   justify-content: center;
   border-radius: 7px;

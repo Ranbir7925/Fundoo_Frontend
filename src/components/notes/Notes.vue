@@ -1,7 +1,7 @@
 <template>
   <div>
     <CreateNotes />
-    <DisplayNotes v-bind:noteList="noteList" />
+    <DisplayNotes v-bind:noteList="filteredList" />
   </div>
 </template>
 
@@ -15,6 +15,7 @@ export default {
   data() {
     return {
       noteList: [],
+      searchText:''
     };
   },
   methods: {
@@ -30,16 +31,28 @@ export default {
     fetchTrashList: function () {
       NoteService.fetchTrashNotesList().then((response) => {
         this.noteList = response.data.data.data;
-      });
+      })
+      .catch((error)=>{console.log(error);})
     },
   },
   created() {
     this.fetchNotes();
+    eventBus.$on("searchNotesWithTitle", (data) => {
+      this.searchText=data;
+    })
     eventBus.$on("getAfterUpdatedNoteList", () => {
       this.noteList = [];
       this.fetchNotes();
     });
-    eventBus.$emit("sendIdList", this.noteList.id);
+    // eventBus.$emit("sendIdList", this.noteList.id);
   },
+  computed:{
+    filteredList:function(){
+      return this.noteList
+      .filter((note)=>{
+        return note.title.match(this.searchText);
+      })
+    }
+  }
 };
 </script>

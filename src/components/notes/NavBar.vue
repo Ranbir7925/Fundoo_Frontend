@@ -6,6 +6,7 @@
         <img src="../../assets/keep.png" />
         <v-toolbar-title id="title">Fundoo</v-toolbar-title>
         <v-text-field
+          v-model="searchText"
           class="textfield"
           placeholder="Search.."
           hide-details
@@ -33,17 +34,15 @@
             <md-menu-content>
               <div class="profile">
                 <md-button class="md-icon-button">
-                  <md-icon>person</md-icon>
-                   </md-button
+                  <md-icon>person</md-icon> </md-button
                 ><br />
 
-                <label class="profile-name">
-                  {{ userName }}</label
+                <label class="profile-name"> {{ userName }}</label
                 ><br />
                 <label class="profile-email">{{ email }}</label
                 ><br />
                 <div id="manage">Manage your Google Account</div>
-                <md-button id="signout" >Signout</md-button>
+                <md-button id="signout">Signout</md-button>
               </div>
             </md-menu-content>
           </md-menu>
@@ -94,12 +93,20 @@
   </v-app>
 </template>
 <script>
+import { eventBus } from "../../main";
 export default {
+  name: "NavBar",
   data() {
     return {
-      userName:'',
-      email:''
+      userName: "",
+      email: "",
+      searchText:''
     };
+  },
+  watch: {
+    searchText: function () {
+      eventBus.$emit("searchNotesWithTitle", this.searchText);
+    },
   },
   methods: {
     goto(selectedOption) {
@@ -113,17 +120,18 @@ export default {
         this.$router.push("archive");
       }
     },
-  //   signout: function () {
-  //     localStorage.removeItem("access_token");
-  //     localStorage.removeItem("userName");
-  //     localStorage.removeItem("email");
-  //     this.$router.push("/");
-  //   },	  
-  // },	
-  // created() {
-  //   this.userName = localStorage.getItem("username");
-  //   this.email = localStorage.getItem("email");
+    signout: function () {
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("userName");
+      localStorage.removeItem("email");
+      this.$router.push("/signIn");
+    },
   },
+  created() {
+    this.userName = localStorage.getItem("username");
+    this.email = localStorage.getItem("email");
+  },
+  
 };
 </script>
 
@@ -169,16 +177,6 @@ img {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
 .profile {
   width: 100%;
   border-radius: 65%;
@@ -194,7 +192,7 @@ img {
 }
 .profile-email {
   font-family: Arial, Helvetica, sans-serif;
- font-size: 17px;
+  font-size: 17px;
   margin-top: -6%;
 }
 #signout {
@@ -205,21 +203,21 @@ img {
   border: 1px solid black;
 }
 #signout :hover {
-   background-color: rgb(236, 229, 229);
+  background-color: rgb(236, 229, 229);
 }
 #manage {
   margin-bottom: 7%;
   font-family: Arial, Helvetica, sans-serif;
   background-color: white;
   width: 99%;
-  color:  rgb(14, 12, 12);
+  color: rgb(14, 12, 12);
   border-radius: 10px;
   font-size: 15px;
-   border: 1px solid black;
-   cursor: pointer;
+  border: 1px solid black;
+  cursor: pointer;
 }
 #manage :hover {
-   background-color: rgb(236, 229, 229);
+  background-color: rgb(236, 229, 229);
 }
 .md-drawer {
   width: 17%;
