@@ -21,10 +21,52 @@ const router = new Router({
     { path: '/resetpassword/:token', component: ResetPassword },
     {
       path: '/dashboard', component: Dashboard,
+      beforeEnter(to, from, next) {
+        if (localStorage.getItem("access_token") == undefined) {
+          next({
+            path: '/signin'
+          })
+        } else {
+          next()
+        }
+      },
       children: [
-        { path: 'notes', component: Notes },
-        { path: 'trash', component: Trash },
-        { path: 'archive', component: Archive }
+        {
+          path: 'notes', component: Notes,
+          beforeEnter(to, from, next) {
+            if (localStorage.getItem("access_token") == undefined) {
+              next({
+                path: '/signin'
+              })
+            } else {
+              next()
+            }
+          }
+        },
+        {
+          path: 'trash', component: Trash,
+          beforeEnter(to, from, next) {
+            if (localStorage.getItem("access_token") == undefined) {
+              next({
+                path: '/signin'
+              })
+            } else {
+              next()
+            }
+          }
+        },
+        {
+          path: 'archive', component: Archive,
+          beforeEnter(to, from, next) {
+            if (localStorage.getItem("access_token") == undefined) {
+              next({
+                path: '/signin'
+              })
+            } else {
+              next()
+            }
+          }
+        }
       ]
     },
   ]
