@@ -5,23 +5,23 @@
 </template>
 
 <script>
-import NoteService from '../../services/noteService'
-import { eventBus } from '../../main'
+import NoteService from "../../services/noteService";
+import { eventBus } from "../../main";
 export default {
   name: "IconUnarchive",
-  props:['noteId'],
-  methods:{
-      unarchiveNotes:function(){
-          const noteData = {
-              isArchived: false,
+  props: ["noteId"],
+  methods: {
+    unarchiveNotes: function () {
+      const noteData = {
+        isArchived: false,
         noteIdList: [this.noteId],
-          }
-          NoteService.unarchiveNotes(noteData)
-          .then(()=>{
-              eventBus.$emit("unarchivedNote")
-          })
-      }
-  }
+      };
+      NoteService.unarchiveNotes(noteData).then(() => {
+        eventBus.$emit("unarchivedNote");
+      })
+      .catch((error)=>{console.log(error)})
+    },
+  },
 };
 </script>
 

@@ -38,13 +38,12 @@ export default {
   created() {
     this.fetchNotes();
     eventBus.$on("searchNotesWithTitle", (data) => {
-      this.searchText=data;
+      this.searchText=data
     })
     eventBus.$on("getAfterUpdatedNoteList", () => {
       this.noteList = [];
       this.fetchNotes();
     });
-    // eventBus.$emit("sendIdList", this.noteList.id);
   },
   computed:{
     filteredList:function(){

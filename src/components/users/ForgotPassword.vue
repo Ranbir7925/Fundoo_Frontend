@@ -87,6 +87,7 @@ export default {
 };
 </script>
 
+
 <style scoped>
 .outterContainer {
   height: 100vh;

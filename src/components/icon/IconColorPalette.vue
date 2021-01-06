@@ -60,7 +60,8 @@ export default {
         };
         NoteService.changeCardColor(colorData).then(() => {
           eventBus.$emit("getAfterUpdatedNoteList");
-        });
+        })
+        .catch(error => console.log(error))
       }
     },
   },

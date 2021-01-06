@@ -27,10 +27,6 @@ export default {
 <style scoped>
 .delete-part {
   cursor: pointer;
-  margin-top: -10%;
-  margin-right: 10%;
 }
-.md-icon {
-  margin-right: 90%;
-}
+
 </style> 

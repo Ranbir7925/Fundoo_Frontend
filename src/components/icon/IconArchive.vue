@@ -19,6 +19,7 @@ export default {
       NoteService.archiveNotes(archiveData).then(()=>{
         eventBus.$emit("getAfterUpdatedNoteList");
       })
+      .catch(error => console.log(error))
     }
   }
 };

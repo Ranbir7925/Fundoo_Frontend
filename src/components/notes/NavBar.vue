@@ -42,7 +42,7 @@
                 <label class="profile-email">{{ email }}</label
                 ><br />
                 <div id="manage">Manage your Google Account</div>
-                <md-button id="signout">Signout</md-button>
+                <md-button id="signout" @click="signout">Signout</md-button>
               </div>
             </md-menu-content>
           </md-menu>
@@ -122,7 +122,7 @@ export default {
     },
     signout: function () {
       localStorage.removeItem("access_token");
-      localStorage.removeItem("userName");
+      localStorage.removeItem("username");
       localStorage.removeItem("email");
       this.$router.push("/signIn");
     },

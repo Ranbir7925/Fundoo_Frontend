@@ -80,20 +80,14 @@ export default {
 
 <style scoped>
 .display-notes {
-  width: 100%;
-  margin-top: 1%;
-  margin-left: 4%;
+  margin-left: 3%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
 .card-items {
-  padding: 10px;
   display: flex;
   flex-direction: column;
-  height: min-content;
-  text-align: flex-start;
-  padding: 10px;
 }
 .md-card {
   width: 290px;
@@ -102,7 +96,6 @@ export default {
   border-radius: 5%;
 }
 .content-part {
-  width: 90%;
   word-break: break-word;
   font-weight: bold;
   font-size: 18px;
@@ -112,7 +105,6 @@ export default {
 }
 .description-part {
   font-weight: bold;
-  width: 90%;
   word-break: break-word;
   opacity: 0.6;
   font-size: 18px;
@@ -128,19 +120,19 @@ export default {
 }
 @media screen and (max-width: 1024px) {
   .md-card {
-    margin: 10px;
+    margin: 8px;
     width: 230px;
   }
 }
 @media screen and (max-width: 480-px) {
   .md-card {
-    margin: 10px;
+    margin: 8px;
     width: 230px;
   }
 }
 @media screen and (max-width: 320px) {
   .md-card {
-    margin: 10px;
+    margin: 8px;
     width: 230px;
   }
 }

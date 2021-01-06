@@ -1,6 +1,6 @@
 <template>
-  <div id="create-note-container">
-    <div id="note-mainpart">
+  <div class="create-note-container">
+    <div class="note-mainpart">
       <div @click="display()">
         <md-card :class="{ header: isVisible }">
           <label class="title-first">Take a note....</label>
@@ -95,11 +95,15 @@ export default {
 </script>
 
 <style scoped>
-#create-note-container {
+.create-note-container {
+  display: flex;
+  justify-content: center;
+}
+/* #create-note-container {
   width: 100%;
   margin-right: 50%;
-}
-#note-mainpart {
+} */
+/* #note-mainpart {
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -112,6 +116,16 @@ export default {
   font-weight: 600;
   font-size: 18px;
   cursor: text;
+} */
+.note-mainpart {
+  box-shadow: 0px 0px 5px 2px #a19f9f;
+  padding: 10px;
+  font-weight: 600;
+  font-size: 18px;
+  cursor: text;
+  border-radius: 7px;
+  width: 50%;
+  margin: 15px 0px;
 }
 .header {
   display: none !important;
@@ -128,14 +142,14 @@ export default {
   font-weight: 600;
   margin-top: -4%;
 }
-#notebox {
+/* #notebox {
   width: 100%;
-}
+} */
 .notebox-icons {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: -5%;
+  /* margin-top: -5%; */
 }
 .notebox-icons > button {
   width: 15%;
@@ -155,54 +169,6 @@ span {
 }
 .title-first {
   opacity: 0.5;
-  margin-right: 374px;
-}
-@media screen and (max-width: 1024px) {
-  #create-note-container {
-    width: 100%;
-    margin-left: -2%;
-  }
-  #note-mainpart {
-    min-width: 78%;
-    padding: 20px;
-    margin-left: 20%;
-  }
-  .title-first {
-    margin-right: 200px;
-    font-size: 10px;
-  }
-}
-@media screen and (max-width: 480px) {
-  #create-note-container {
-    width: 100%;
-    margin-left: -2%;
-  }
-  #note-mainpart {
-    min-width: 86%;
-    padding: 20px;
-    margin-left: 20%;
-  }
-  .title-first {
-    margin-right: 150px;
-    font-size: 15px;
-  }
-  #note-card {
-    width: 200px;
-  }
-}
-@media screen and (width: 320px) {
-  #create-note-container {
-    width: 100%;
-  }
-  #note-mainpart {
-    min-width: 90%;
-    padding: 20px;
-    margin-left: 21%;
-  }
-  .title-first {
-    margin-right: 80px;
-    font-size: 15px;
-    height: 2%;
-  }
+  /* margin-right: 374px; */
 }
 </style>

@@ -92,7 +92,7 @@ export default {
             localStorage.setItem("access_token", response.data.id);
             localStorage.setItem("username", response.data.firstName);
             localStorage.setItem("email", response.data.email);
-            setTimeout(()=>  this.$router.push("/dashboard"), 2000)
+            setTimeout(()=>  this.$router.push("/dashboard/notes"), 2000)
           })
           .catch((err) => {
             console.log(err);
