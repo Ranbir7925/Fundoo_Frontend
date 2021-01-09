@@ -1,6 +1,7 @@
 <template>
   <div class="delete-Notes" @click="DeletedNotesInTrash()">
     <md-icon>delete</md-icon>
+    <md-tooltip md-direction="bottom">Delete</md-tooltip>
   </div>
 </template>
 

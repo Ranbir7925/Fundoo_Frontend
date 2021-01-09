@@ -1,6 +1,7 @@
 <template>
   <div class="unarchive">
     <md-icon @click.native="unarchiveNotes">unarchive</md-icon>
+    <md-tooltip md-direction="bottom">unarchive</md-tooltip>
   </div>
 </template>
 
@@ -16,10 +17,13 @@ export default {
         isArchived: false,
         noteIdList: [this.noteId],
       };
-      NoteService.unarchiveNotes(noteData).then(() => {
-        eventBus.$emit("unarchivedNote");
-      })
-      .catch((error)=>{console.log(error)})
+      NoteService.unarchiveNotes(noteData)
+        .then(() => {
+          eventBus.$emit("unarchivedNote");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };

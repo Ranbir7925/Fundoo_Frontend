@@ -2,6 +2,13 @@
   <div>
     <CreateNotes />
     <DisplayNotes v-bind:noteList="filteredList" />
+    <md-snackbar
+      md-position="left"
+      :md-active.sync="showSnackbar"
+      md-persistent
+    >
+      <span>{{ result }}</span>
+    </md-snackbar>
   </div>
 </template>
 
@@ -15,7 +22,9 @@ export default {
   data() {
     return {
       noteList: [],
-      searchText:''
+      searchText:'',
+      showSnackbar:false,
+      result:''
     };
   },
   methods: {

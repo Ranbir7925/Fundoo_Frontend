@@ -14,12 +14,12 @@
         >
           <md-field md-inline>
             <label class="title">Title</label>
-            <md-input v-model="title"></md-input>
+            <md-input v-model="title" @keyup.enter="addNote"></md-input>
           </md-field>
 
           <md-field md-inline>
             <label>Take a note....</label>
-            <md-textarea v-model="description" md-autogrow> </md-textarea>
+            <md-textarea v-model="description" @keyup.enter="addNote" md-autogrow> </md-textarea>
           </md-field>
 
           <div class="notebox-icons">
@@ -118,8 +118,7 @@ export default {
   cursor: text;
 } */
 .note-mainpart {
-  box-shadow: 0px 0px 5px 2px #a19f9f;
-  padding: 10px;
+  /* box-shadow: 0px 0px 5px 2px #a19f9f; */
   font-weight: 600;
   font-size: 18px;
   cursor: text;
@@ -132,10 +131,10 @@ export default {
   opacity: 0.1;
 }
 .md-card {
-  padding: 4px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  box-shadow: none;
+  /* box-shadow: none; */
 }
 .md-field {
   font-size: 16px;

@@ -17,6 +17,7 @@
           <IconColorPalette v-bind:note="note.id" />
           <IconArchive  v-bind:note="note.id"/>
           <DeleteNote v-bind:note="note.id" />
+          <Collaborator v-bind:note="note.id" />
         </div>
       </md-card>
     </div>
@@ -42,6 +43,7 @@ import DeleteNote from "./DeleteNote";
 import UpdateNote from "./UpdateNote";
 import DeletePermanent from "./DeletePermanent";
 import IconUnarchive from '../icon/IconUnarchive'
+import Collaborator from '../notes/collaborator'
 import { eventBus } from "../../main";
 export default {
   name: "DisplayNotes",
@@ -60,7 +62,8 @@ export default {
     DeletePermanent,
     DeleteNote,
     UpdateNote,
-    IconUnarchive
+    IconUnarchive,
+    Collaborator,
   },
   methods: {
     updateBoxData: function (note) {
@@ -80,7 +83,7 @@ export default {
 
 <style scoped>
 .display-notes {
-  margin-left: 3%;
+  margin-left: 10%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

@@ -1,5 +1,5 @@
 <template>
-  <div class="archive-display">
+  <div class="archive-notes">
     <DisplayNote
       v-bind:noteList="filteredList"
       v-bind:iconCategory="iconCategory"
@@ -44,7 +44,7 @@ export default {
       this.showSnackbar=true
       this.result = "UnArchive Note Successfully"; 
     });
-    eventBus.$on("searchCard", (data) => {
+    eventBus.$on("searchNotesWithTitle", (data) => {
       this.searchText=data;
     });
   },
@@ -57,13 +57,3 @@ export default {
   }
 };
 </script>
-<style scoped>
-.archive-display {
-  display: flex;
-  /* margin-top: 1%; */
-  /* margin-left: 20%; */
-  flex-direction: row;
-  /* width: 65%; */
-  flex-wrap: wrap;
-}
-</style> 

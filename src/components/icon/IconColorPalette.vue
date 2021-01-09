@@ -2,6 +2,7 @@
   <div class="color-palette">
     <md-menu md-size="medium" md-align-trigger md-direction="top-start">
       <md-icon md-menu-trigger>palette</md-icon>
+      <md-tooltip md-direction="bottom">Change color</md-tooltip>
       <md-menu-content>
         <div class="color-items">
           <div
@@ -59,6 +60,7 @@ export default {
           noteIdList: [this.note],
         };
         NoteService.changeCardColor(colorData).then(() => {
+          
           eventBus.$emit("getAfterUpdatedNoteList");
         })
         .catch(error => console.log(error))
@@ -73,6 +75,7 @@ export default {
   cursor: pointer;
 }
 .md-menu-content {
+  z-index: 12;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

@@ -1,21 +1,21 @@
 <template>
   <div>
-    <md-dialog :md-active.sync="showUpdateBox">
-      <md-card id="updateNoteCard">
+    <md-dialog :md-active.sync="showUpdateBox" class="update-box">
+      <md-card id="updateNoteCard" v-bind:style="{ background: color }">
         <md-field>
           <md-input v-model="title"> </md-input>
         </md-field>
-
         <md-field>
           <md-textarea v-model="description" md-autogrow></md-textarea>
         </md-field>
 
         <div class="notebox-icons">
           <span>
-            <IconColorPalette v-bind:note="noteId" />
-            <IconArchive v-bind:note="noteId" />
+            <IconColorPalette v-bind:note="noteId"/>
+            <IconArchive v-bind:note="noteId"/>
+            <DeleteNote v-bind:note="noteId" />
           </span>
-          <button @click="closeDialogBox()">Close</button>
+          <button @click.once="closeDialogBox">Close</button>
         </div>
       </md-card>
     </md-dialog>
@@ -25,6 +25,7 @@
 <script>
 import IconColorPalette from "../icon/IconColorPalette";
 import IconArchive from "../icon/IconArchive";
+import DeleteNote from '../notes/DeleteNote'
 import NoteService from "../../services/noteService";
 import { eventBus } from "../../main";
 export default {
@@ -33,6 +34,7 @@ export default {
   components: {
     IconColorPalette,
     IconArchive,
+    DeleteNote
   },
   data() {
     return {
@@ -40,11 +42,12 @@ export default {
       description: "",
       noteId: "",
       color: "",
-      showUpdateBoxNew : this.showUpdateBox
+      // showUpdateBoxNew : this.showUpdateBox
     };
   },
   methods: {
     closeDialogBox: function () {
+      this.showUpdateBox = false;
       const updateData = {
         noteId: this.noteId,
         title: this.title,
@@ -52,10 +55,9 @@ export default {
       };
       NoteService.updateNotes(updateData)
         .then(() => {
-          this.showUpdateBoxNew = false;
+          this.showUpdateBox = false;
           this.isArchived = false;
-          eventBus.$emit("closeDialogBox", this.showUpdateBoxNew);
-          eventBus.$emit("getAfterUpdatedNoteList");
+          eventBus.$emit("closeDialogBox", this.showUpdateBox);
         })
         .catch((err) => {
           console.log(err);
@@ -63,7 +65,7 @@ export default {
     },
   },
   created() {
-    eventBus.$on("'getUpdated", (data) => {
+    eventBus.$on("getUpdated", (data) => {
       this.color = data;
     });
   },
@@ -78,10 +80,10 @@ export default {
 
 <style scoped>
 #updateNoteCard {
-  border-radius: 10px;
+  width: 500px !important;
 }
+
 .md-dialog .md-dialog-container {
-  width: 40%;
   min-height: 20vh;
   border-radius: 10px;
 }

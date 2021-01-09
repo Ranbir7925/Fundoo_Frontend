@@ -15,33 +15,19 @@
           outlined
         ></v-text-field>
         <div class="toolbar-end">
-          <v-btn icon>
-            <md-icon>refresh</md-icon>
-          </v-btn>
-
-          <v-btn icon>
-            <md-icon>settings</md-icon>
-          </v-btn>
-
-          <v-btn icon>
-            <md-icon>account_circle</md-icon>
-          </v-btn>
-
-          <md-menu md-size="medium" md-align-trigger>
+          <md-menu md-size="huge" md-align-trigger>
             <md-button class="md-icon-button" md-menu-trigger>
-              <md-icon>person</md-icon>
+              <md-avatar class="md-avatar-icon">{{ initialName }}</md-avatar>
             </md-button>
             <md-menu-content>
               <div class="profile">
                 <md-button class="md-icon-button">
-                  <md-icon>person</md-icon> </md-button
-                ><br />
-
-                <label class="profile-name"> {{ userName }}</label
-                ><br />
-                <label class="profile-email">{{ email }}</label
-                ><br />
-                <div id="manage">Manage your Google Account</div>
+                  <md-avatar class="md-avatar-icon">{{
+                    initialName
+                  }}</md-avatar>
+                </md-button>
+                <label class="profile-name"> {{ userName }}</label>
+                <label class="profile-email">{{ email }}</label>
                 <md-button id="signout" @click="signout">Signout</md-button>
               </div>
             </md-menu-content>
@@ -99,8 +85,9 @@ export default {
   data() {
     return {
       userName: "",
+      initialName: "",
       email: "",
-      searchText:''
+      searchText: "",
     };
   },
   watch: {
@@ -130,8 +117,8 @@ export default {
   created() {
     this.userName = localStorage.getItem("username");
     this.email = localStorage.getItem("email");
+    this.initialName = this.userName.charAt(0);
   },
-  
 };
 </script>
 
@@ -150,10 +137,11 @@ img {
   padding-left: 15px;
 }
 .textfield {
-  background-color: #eee;
+  background-color: #f1f3f4;
+      border-radius: 10px;
 }
 .toolbar-end {
-  margin-left: 15%;
+  margin-left: 20%;
 }
 .item1:hover {
   cursor: pointer;
@@ -186,17 +174,20 @@ img {
   align-items: center;
 }
 .profile-name {
+  padding: 10px 0px;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 17px;
   font-weight: bolder;
 }
 .profile-email {
+    padding: 10px 0px;
+
   font-family: Arial, Helvetica, sans-serif;
   font-size: 17px;
   margin-top: -6%;
 }
 #signout {
-  width: 40%;
+  width: 28%;
   color: white;
   border-radius: 7px;
   color: black;
