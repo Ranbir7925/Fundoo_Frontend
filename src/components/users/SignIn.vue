@@ -27,6 +27,7 @@
               :rules="[rules.required]"
               outlined
               required
+              @keyup.enter="validate"
             ></v-text-field>
             <v-text-field
               v-model="password"
@@ -37,6 +38,7 @@
               label="Password"
               outlined
               @click:append="show1 = !show1"
+              @keyup.enter="validate"
             ></v-text-field>
           </div>
           <div class="buttons">
@@ -45,7 +47,7 @@
             </div>
             <div class="nextButton">
               <router-link to="/signUp">Create account</router-link>
-              <v-btn @click="validate" color="primary">Next</v-btn>
+              <v-btn @click="validate"   color="primary">Next</v-btn>
             </div>
           </div>
         </v-form>

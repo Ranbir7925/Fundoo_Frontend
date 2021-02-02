@@ -3,26 +3,14 @@ import App from './App.vue'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
-import vuetify from './plugins/vuetify';
-import Router from 'vue-router'
-import SignIn from './components/SignIn'
-import SignUp from './components/SignUp'
+import vuetify from './plugins/vuetify'
+import router from './plugins/router'
+
 
 Vue.use(VueMaterial)
-Vue.use(Router)
 Vue.config.productionTip = false
 
-
-const router = new Router({
-  mode: 'history',
-  routes: [
-    { path: '/user/signin', component: SignIn },
-    { path: '/user/signup', component: SignUp },
-    { path: '*', component: SignIn }
-  ]
-});
-
-
+export const eventBus = new Vue();
 
 new Vue({
   vuetify,

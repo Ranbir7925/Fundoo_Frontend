@@ -37,6 +37,12 @@
         <md-button class="md-primary" @click="addColab(), (showDialog = false)">Save</md-button>
       </md-dialog-actions>
     </md-dialog>
+    <md-snackbar 
+        md-position="left" 
+        :md-active.sync="showSnackbar" 
+        md-persistent>
+      <span>{{result}}</span>
+    </md-snackbar> 
   </div>
 </template>
 
@@ -51,6 +57,8 @@ export default {
     showDialog: false,
     newmail: "",
     collaboratorList: [],
+    showSnackbar:false,
+    result:""
   }),
 
   methods: {
@@ -70,7 +78,9 @@ export default {
       );
       console.log(this.note,data);
       NoteService.addCollaborator(data,this.note)
-      .then(()=>{console.log("data.firstName,data.email")
+      .then(()=>{
+        this.showSnackbar=true;
+        this.result="Collaborator added"
       })
     },
   },
@@ -82,7 +92,7 @@ export default {
 </script>
 
 <style scoped>
-.md-dialog-container {
+.pop-up {
   width: 650px !important;
   z-index: 6 !important;
 }

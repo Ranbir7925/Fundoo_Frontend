@@ -6,7 +6,6 @@
           <label class="content-part">{{ note.title }}</label>
           <label class="description-part">{{ note.description }}</label>
         </div>
-
         <div v-if="iconCategory == 'trash'" class="notebox-icons">
           <DeletePermanent v-bind:noteId="note.id" />
         </div>

@@ -21,11 +21,14 @@
             </md-button>
             <md-menu-content>
               <div class="profile">
-                <md-button class="md-icon-button">
+                  <input type="file" ref="file" style="display: none">
+
+                <md-button @click="$refs.file.click()" class="md-icon-button">
                   <md-avatar class="md-avatar-icon">{{
                     initialName
                   }}</md-avatar>
                 </md-button>
+
                 <label class="profile-name"> {{ userName }}</label>
                 <label class="profile-email">{{ email }}</label>
                 <md-button id="signout" @click="signout">Signout</md-button>

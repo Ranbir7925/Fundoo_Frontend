@@ -30,5 +30,12 @@ class NoteService{
     changeCardColor(colorData){
         return axiosService.post('notes/changesColorNotes',colorData)
     }
+    getCollaboratorList(input){
+        return axiosService.post('user/searchUserList',input)
+    }
+    addCollaborator(input,id){
+        return axiosService.post('notes/'+id+'/AddcollaboratorsNotes',input)
+    }
+
 }
 export default new NoteService
